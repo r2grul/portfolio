@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BK Sipariş — Kullanım Rehberi</title>
+<style>
+  :root {
+    --bg: #f6f7fb; --card: #ffffff; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0;
+    --accent: #1e5a96; --accent-soft: #e8f0f9; --note: #fff8e6; --note-line: #f2d48a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; font-size: 15px; }
+  .layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); max-width: 1360px; margin: 0 auto; }
+  nav { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 28px 18px; border-right: 1px solid var(--line); background: var(--card); }
+  nav .brand { font-weight: 700; font-size: 17px; margin-bottom: 4px; }
+  nav .sub { color: var(--muted); font-size: 12.5px; margin-bottom: 18px; }
+  nav h4 { margin: 18px 0 6px; font-size: 11px; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+  nav a { display: block; padding: 4px 10px; border-radius: 8px; color: var(--ink); text-decoration: none; font-size: 13.5px; }
+  nav a:hover { background: var(--accent-soft); color: var(--accent); }
+  main { padding: 36px 48px 80px; }
+  header.hero { margin-bottom: 36px; }
+  header.hero h1 { font-size: 30px; margin: 0 0 6px; }
+  header.hero p { color: var(--muted); margin: 0; max-width: 760px; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 28px 32px; margin-bottom: 28px; scroll-margin-top: 16px; }
+  section h2 { margin: 0 0 4px; font-size: 22px; }
+  section .where { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .group-title { margin: 44px 0 14px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  figure { margin: 16px 0 18px; }
+  figure img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; display: block; cursor: zoom-in; }
+  figcaption { color: var(--muted); font-size: 12.5px; margin-top: 6px; }
+  ol.steps { padding-left: 22px; margin: 8px 0; }
+  ol.steps li { margin: 5px 0; }
+  .tip { background: var(--note); border: 1px solid var(--note-line); border-radius: 10px; padding: 10px 14px; font-size: 14px; margin-top: 12px; }
+  .intro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 10px; }
+  .intro-grid div { background: var(--accent-soft); border-radius: 10px; padding: 12px 14px; font-size: 14px; }
+  b.ui { font-weight: 600; color: var(--accent); }
+  .part { margin: 52px 0 6px; padding: 14px 20px; border-radius: 12px; background: var(--accent); color: #fff; }
+  .part b { font-size: 20px; display: block; }
+  .part span { font-size: 13.5px; opacity: .88; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin: 10px 0 8px; }
+  .gallery a { display: block; text-decoration: none; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; transition: box-shadow .15s, transform .15s; }
+  .gallery a:hover { box-shadow: 0 6px 18px rgba(15,23,42,.12); transform: translateY(-2px); }
+  .gallery img { width: 100%; display: block; border-bottom: 1px solid var(--line); }
+  .gallery .lbl { padding: 9px 12px 10px; font-size: 13.5px; }
+  .gallery .lbl b { display: block; font-size: 14px; }
+  .gallery .lbl small { color: var(--muted); }
+  .gallery .sub { border-color: #c9d9ec; }
+  .gallery .sub .lbl { background: var(--accent-soft); }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pair figure { margin: 10px 0; }
+  .stepno { display: inline-block; min-width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 11px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; margin-right: 6px; }
+  @media (max-width: 900px) { .pair { grid-template-columns: 1fr; } }
+  .lightbox { position: fixed; inset: 0; background: rgba(15,23,42,.85); display: none; align-items: center; justify-content: center; z-index: 10; cursor: zoom-out; padding: 20px; }
+  .lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; }
+  .lightbox.open { display: flex; }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } nav { position: static; height: auto; } main { padding: 20px; } section { padding: 20px; } }
+  nav a.home { color: var(--accent); font-weight: 600; margin-bottom: 14px; }
+/* about */
+  .about { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px 28px; margin-bottom: 36px; }
+  .about h2 { margin: 0 0 6px; font-size: 22px; }
+  .about > p { margin: 0 0 16px; color: var(--muted); max-width: 820px; }
+  .about .star { border-radius: 12px; background: var(--accent); color: #fff; padding: 16px 20px; margin: 0 0 16px; }
+  .about .star .tag { display: inline-block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; background: rgba(255,255,255,.18); border-radius: 999px; padding: 2px 10px; margin-bottom: 6px; }
+  .about .star b { display: block; font-size: 18px; margin-bottom: 2px; }
+  .about .star span { font-size: 14px; opacity: .92; }
+  .about .star.soft { background: var(--accent-soft); color: var(--ink); border-left: 5px solid var(--accent); }
+  .about .star.soft .tag { background: var(--accent); color: #fff; }
+  .about .star.soft b { color: var(--accent); }
+  .about .feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+  .about .feat { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; background: var(--bg); }
+  .about .feat b { display: block; font-size: 14px; }
+  .about .feat span { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <a class="home" href="../">← Tüm rehberler</a>
+  <div class="brand">BK Sipariş</div>
+  <div class="sub">Kullanım rehberi · yeni tasarım</div>
+  <a href="#ne-ise-yarar">Ne işe yarar?</a>
+  <a href="#baslangic">Başlarken</a>
+  <h4>1 · Genel bakış</h4>
+  <a href="#ozet">Tüm sekmeler ve alt sekmeler</a>
+  <h4>2 · Ayrıntılı kullanım</h4>
+  <h4 style="margin-top:6px">Sipariş</h4>
+  <a href="#siparis-ver">Sipariş Ver</a>
+  <a href="#siparis-takip">Sipariş Takip</a>
+  <a href="#kesim">Kesim</a>
+  <a href="#trello">Trello Kartları</a>
+  <a href="#otomatik">Otomatik Sipariş</a>
+  <a href="#tum-siparisler">Tüm Siparişler</a>
+  <a href="#toplu-kabin">Toplu Kabin</a>
+  <h4>Cam</h4>
+  <a href="#irsaliye">Cam İrsaliyeleri</a>
+  <a href="#cam-bul">Uydurma Cam Bul</a>
+  <h4>Satın alma</h4>
+  <a href="#talep">Talep Takip</a>
+  <a href="#teklif-olustur">Teklif Oluştur</a>
+  <a href="#teklifler">Teklifler</a>
+  <h4>Stok</h4>
+  <a href="#yari-mamul">Yarı Mamül Stok</a>
+  <a href="#sac-stok">Sac Stok Yönetimi</a>
+  <a href="#malzemeler">Malzemeler</a>
+  <h4>Genel</h4>
+  <a href="#notlarim">Notlarım</a>
+  <a href="#kullanicilar">Kullanıcılar</a>
+  <a href="#kullanici-ekle">Kullanıcı Ekle</a>
+  <a href="#ayarlar">Ayarlar</a>
+</nav>
+
+<main>
+<header class="hero">
+  <h1>BK Sipariş Kullanım Rehberi</h1>
+  <p>Rehber iki bölümden oluşur: önce tüm sekmeler ve alt sekmeler tek sayfada özetlenir, ardından her sekmenin işlevi demo siparişlerle adım adım gösterilir. Görüntüler yeni tasarımla alınmıştır. Ekranlardaki bütün veriler uydurmadır: uygulama demo modunda, yerel bir test veritabanıyla açılmıştır; gerçek sipariş, müşteri, firma ya da kişi bilgisi içermez.</p>
+</header>
+
+<!--about-->
+<section id="ne-ise-yarar" class="about">
+  <h2>Uygulama ne işe yarar?</h2>
+  <p>BK Sipariş, kabin üretiminin sipariş, satın alma ve stok süreçlerini tek yerden yöneten ana uygulamadır: sac ve cam siparişlerinden tedarikçi tekliflerine, irsaliyelerden sac stoğuna kadar.</p>
+  <div class="star"><div class="tag">Öne çıkan</div><b>Yapay zekâ ile sipariş yönetimi</b><span>Siparişler yapay zekâ desteğiyle yönetilir; sipariş açma ve takip işleri hızlanır, gözden kaçan kalemler azalır.</span></div>
+  <div class="feats">
+    <div class="feat"><b>Sac sipariş</b><span>Sac parçalarına kalınlıklarına göre sipariş açma</span></div>
+    <div class="feat"><b>Kesime gönderme</b><span>Siparişi açılan sac parçalarını nesting planı olarak kesime gönderme</span></div>
+    <div class="feat"><b>Cam çerçeve sipariş</b><span>Cam ve çerçeve siparişi açma</span></div>
+    <div class="feat"><b>Sipariş takibi</b><span>Açılan bütün siparişlerin durumunu izleme</span></div>
+    <div class="feat"><b>Tek tıkla kabin siparişi</b><span>Belirli kabinlerde bütün ekipmanların siparişini tek tıkla açma</span></div>
+    <div class="feat"><b>İrsaliye takibi</b><span>Gelen irsaliyelerin ve teslimatların takibi</span></div>
+    <div class="feat"><b>Stoktaki camlar</b><span>Yeni tasarımlarda kullanılabilecek, stokta bekleyen camları bulup tasarım süresini kısaltma</span></div>
+    <div class="feat"><b>Satın alma talepleri</b><span>Personelin iş yeri ihtiyaçları için açtığı taleplerin kontrolü ve süreç yönetimi</span></div>
+    <div class="feat"><b>Toplu teklif maili</b><span>Kategorilere ayrılmış firmalardan gerekli ürünler için toplu fiyat teklifi maili oluşturma</span></div>
+    <div class="feat"><b>Satın alma takibi</b><span>Satın alma sürecini adım adım izleme</span></div>
+    <div class="feat"><b>Fiyat karşılaştırma</b><span>Teklifleri karşılaştırma; gerekirse en düşük fiyatı hedef fiyat gösterip yeniden teklif maili oluşturma</span></div>
+    <div class="feat"><b>Teklif onayı</b><span>Fiyat tekliflerini onaylama ve onay mailini oluşturma</span></div>
+    <div class="feat"><b>Yarı mamül stok</b><span>Sipariş açılan yarı mamül sac malzemelerin stok yönetimi</span></div>
+    <div class="feat"><b>Sac plaka stok</b><span>Sac plakaların adet ve kilogram olarak stok yönetimi</span></div>
+  </div>
+</section>
+<!--/about-->
+
+
+
+
+
+<section id="baslangic">
+  <h2>Başlarken</h2>
+  <div class="where">Giriş, menü ve tasarım geçişi</div>
+  <ol class="steps">
+    <li>Kullanıcı adı ve şifrenizle giriş yapın. Aynı gün içinde tekrar açtığınızda uygulama sizi otomatik olarak içeri alır. <b class="ui">Beni Hatırla</b> kullanıcı bilgilerinizi saklar.</li>
+    <li>Soldaki menü beş gruba ayrılır: <b class="ui">Sipariş</b>, <b class="ui">Cam</b>, <b class="ui">Satın Alma</b>, <b class="ui">Stok</b> ve <b class="ui">Genel</b>. Yalnızca yetkiniz olan sekmeleri görürsünüz.</li>
+    <li>Menünün altındaki <b class="ui">Yeni tasarım / Klasik tasarım</b> düğmesiyle görünümü değiştirirsiniz. Uygulama her açılışta klasik tasarımla başlar.</li>
+    <li>Sol üstteki ok menüyü daraltır; daraltınca sayfaya daha fazla yer kalır.</li>
+  </ol>
+  <div class="tip"><b>Demo modu:</b> Rehberdeki ekranlar uygulamanın <b class="ui">--demo</b> argümanıyla açılan demo modunda alınmıştır. Bu modda uygulama yalnızca yerel <i>BKSiparis_Demo</i> veritabanına bağlanır; Firebase, Trello, mail gönderimi, otomasyon motoru ve güncelleme kontrolü kapalıdır. Markalar (ATLAS, NOVA, TERRA, VEGA, ORION), modeller, kişiler ve firmalar uydurmadır.</div>
+  <div class="intro-grid">
+    <div><b>Üst çubuk</b><br>Açık sayfanın adı, kısa açıklaması, tarih ve oturum açan kullanıcı.</div>
+    <div><b>Yenile</b><br>Çoğu sayfanın sağ üstünde bulunur, verileri veritabanından tekrar çeker.</div>
+    <div><b>Çıkış</b><br>Menünün en altında. Oturumu kapatır ve giriş ekranına döner.</div>
+  </div>
+</section>
+
+<div class="part"><b>1. Bölüm · Genel bakış</b><span>Uygulamadaki bütün sekmeler ve alt sekmeler. Mavi zeminli kutular alt sekmedir. Bir kutuya tıklayınca o sekmenin ayrıntılı anlatımına gidersiniz.</span></div>
+
+<section id="ozet">
+  <h2>Tüm sekmeler ve alt sekmeler</h2>
+  <div class="where">Menü grubu sırasıyla</div>
+  <div class="group-title" style="margin-top:22px">Sipariş</div>
+  <div class="gallery">
+    <a class="sub" href="#siparis-ver"><img src="img/MenuSiparisVer.png" alt="Sipariş Ver › Lazer üretim" loading="lazy"><div class="lbl"><b>Sipariş Ver › Lazer üretim</b><small>Alt sekme · lazer kesim siparişi</small></div></a>
+    <a class="sub" href="#siparis-ver"><img src="img/alt_siparisver_cam.png" alt="Sipariş Ver › Cam-çerçeve sipariş" loading="lazy"><div class="lbl"><b>Sipariş Ver › Cam-çerçeve sipariş</b><small>Alt sekme · cam ve çerçeve siparişi</small></div></a>
+    <a href="#siparis-takip"><img src="img/MenuSiparisTakip.png" alt="Sipariş Takip" loading="lazy"><div class="lbl"><b>Sipariş Takip</b><small>Açılmış siparişler, kart görünümü</small></div></a>
+    <a href="#kesim"><img src="img/MenuKesim.png" alt="Kesim" loading="lazy"><div class="lbl"><b>Kesim</b><small>Nesting planları ve kesilecek parçalar</small></div></a>
+    <a href="#trello"><img src="img/MenuTrelloKartlari.png" alt="Trello Kartları" loading="lazy"><div class="lbl"><b>Trello Kartları</b><small>Trello panosundaki sipariş kartları</small></div></a>
+    <a href="#otomatik"><img src="img/MenuOtomatikSiparis.png" alt="Otomatik Sipariş" loading="lazy"><div class="lbl"><b>Otomatik Sipariş</b><small>Otomasyon kontrol ekranı</small></div></a>
+    <a class="sub" href="#tum-siparisler"><img src="img/alt_tum_lazer.png" alt="Tüm Siparişler › Lazer üretim" loading="lazy"><div class="lbl"><b>Tüm Siparişler › Lazer üretim</b><small>Alt sekme · sac kalemleri</small></div></a>
+    <a class="sub" href="#tum-siparisler"><img src="img/alt_tum_cam.png" alt="Tüm Siparişler › Cam" loading="lazy"><div class="lbl"><b>Tüm Siparişler › Cam</b><small>Alt sekme · cam kalemleri</small></div></a>
+    <a class="sub" href="#tum-siparisler"><img src="img/alt_tum_cerceve.png" alt="Tüm Siparişler › Çerçeve" loading="lazy"><div class="lbl"><b>Tüm Siparişler › Çerçeve</b><small>Alt sekme · çerçeve kalemleri</small></div></a>
+    <a href="#toplu-kabin"><img src="img/MenuTopluKabin.png" alt="Toplu Kabin" loading="lazy"><div class="lbl"><b>Toplu Kabin</b><small>Kabin bazında toplu sipariş</small></div></a>
+  </div>
+  <div class="group-title" style="margin-top:22px">Cam</div>
+  <div class="gallery">
+    <a href="#irsaliye"><img src="img/MenuCamIrsaliyeleri.png" alt="Cam İrsaliyeleri" loading="lazy"><div class="lbl"><b>Cam İrsaliyeleri</b><small>Tedarikçi irsaliyeleri</small></div></a>
+    <a href="#cam-bul"><img src="img/MenuCamBul.png" alt="Uydurma Cam Bul" loading="lazy"><div class="lbl"><b>Uydurma Cam Bul</b><small>Ölçüye uyan cam arama</small></div></a>
+  </div>
+  <div class="group-title" style="margin-top:22px">Satın alma</div>
+  <div class="gallery">
+    <a class="sub" href="#talep"><img src="img/alt_talep_talepler.png" alt="Talep Takip › Talepler" loading="lazy"><div class="lbl"><b>Talep Takip › Talepler</b><small>Alt sekme · satın alma talepleri</small></div></a>
+    <a class="sub" href="#talep"><img src="img/alt_talep_planlar.png" alt="Talep Takip › Satın alma planları" loading="lazy"><div class="lbl"><b>Talep Takip › Satın alma planları</b><small>Alt sekme · planlar</small></div></a>
+    <a href="#teklif-olustur"><img src="img/MenuTeklifOlustur.png" alt="Teklif Oluştur" loading="lazy"><div class="lbl"><b>Teklif Oluştur</b><small>Talepten teklif hazırlama</small></div></a>
+    <a class="sub" href="#teklifler"><img src="img/teklifler_01.png" alt="Teklifler › Teklifleri Düzenle" loading="lazy"><div class="lbl"><b>Teklifler › Teklifleri Düzenle</b><small>Alt sekme · firma bazında fiyat girişi</small></div></a>
+    <a class="sub" href="#teklifler"><img src="img/teklifler_02.png" alt="Teklifler › Ürünler" loading="lazy"><div class="lbl"><b>Teklifler › Ürünler</b><small>Alt sekme · ürün bazında karşılaştırma</small></div></a>
+    <a class="sub" href="#teklifler"><img src="img/teklifler_03.png" alt="Teklifler › Firmalar" loading="lazy"><div class="lbl"><b>Teklifler › Firmalar</b><small>Alt sekme · firmaların fiyatları</small></div></a>
+    <a class="sub" href="#teklifler"><img src="img/teklifler_04.png" alt="Teklifler › Yaklaşan Ödemeler" loading="lazy"><div class="lbl"><b>Teklifler › Yaklaşan Ödemeler</b><small>Alt sekme · ödeme takvimi</small></div></a>
+    <a class="sub" href="#teklifler"><img src="img/teklifler_05.png" alt="Teklifler › Tüm Firma Bilgileri" loading="lazy"><div class="lbl"><b>Teklifler › Tüm Firma Bilgileri</b><small>Alt sekme · tedarikçi kartları</small></div></a>
+  </div>
+  <div class="group-title" style="margin-top:22px">Stok</div>
+  <div class="gallery">
+    <a href="#yari-mamul"><img src="img/MenuYariMamulStok.png" alt="Yarı Mamül Stok" loading="lazy"><div class="lbl"><b>Yarı Mamül Stok</b><small>Parçaların akıştaki adetleri</small></div></a>
+    <a href="#sac-stok"><img src="img/MenuSacStokYonetimi.png" alt="Sac Stok Yönetimi" loading="lazy"><div class="lbl"><b>Sac Stok Yönetimi</b><small>Ham sac stoku, fire ve hurda</small></div></a>
+    <a class="sub" href="#malzemeler"><img src="img/alt_malz_sac.png" alt="Malzemeler › Sac malzemeler" loading="lazy"><div class="lbl"><b>Malzemeler › Sac malzemeler</b><small>Alt sekme · arama sonrası açılır</small></div></a>
+    <a class="sub" href="#malzemeler"><img src="img/alt_malz_cam.png" alt="Malzemeler › Cam malzemeler" loading="lazy"><div class="lbl"><b>Malzemeler › Cam malzemeler</b><small>Alt sekme · arama sonrası açılır</small></div></a>
+  </div>
+  <div class="group-title" style="margin-top:22px">Genel</div>
+  <div class="gallery">
+    <a href="#notlarim"><img src="img/MenuNotlarim.png" alt="Notlarım" loading="lazy"><div class="lbl"><b>Notlarım</b><small>Kişisel not panosu</small></div></a>
+    <a href="#kullanicilar"><img src="img/MenuKullanicilar.png" alt="Kullanıcılar" loading="lazy"><div class="lbl"><b>Kullanıcılar</b><small>Bilgiler ve yetkiler</small></div></a>
+    <a href="#kullanici-ekle"><img src="img/MenuKullaniciEkle.png" alt="Kullanıcı Ekle" loading="lazy"><div class="lbl"><b>Kullanıcı Ekle</b><small>Yeni hesap açma</small></div></a>
+    <a href="#ayarlar"><img src="img/MenuAyarlar.png" alt="Ayarlar" loading="lazy"><div class="lbl"><b>Ayarlar</b><small>Veritabanı, klasör ve mail ayarları</small></div></a>
+  </div>
+</section>
+
+<div class="part"><b>2. Bölüm · Ayrıntılı kullanım</b><span>Her sekmenin işlevleri adım adım. Örneklerde demo veritabanında açılan 26 - 713 siparişi (TERRA T50D01, firma: Demo Müşteri), bu siparişin kesim planı ve demo teklif kullanılmıştır. Mailler yalnızca Outlook taslağı olarak açılmış, gönderilmeden kapatılmıştır; taslaklardaki e-posta imzası görüntüden kırpılmıştır.</span></div>
+
+<div class="group-title">Sipariş</div>
+
+<section id="siparis-ver">
+  <h2>Sipariş Ver</h2>
+  <div class="where">Menü › Sipariş › Sipariş Ver</div>
+  <figure><img src="img/MenuSiparisVer.png" alt="Sipariş Ver ekranı"><figcaption>Lazer üretim siparişi formu; sağda oluşturulan siparişler listesi.</figcaption></figure>
+  <p>Lazer kesim ve cam-çerçeve siparişlerini açtığınız ekrandır. Üstteki iki sekmeden <b class="ui">Lazer üretim</b> ya da <b class="ui">Cam-çerçeve sipariş</b> türünü seçin.</p>
+  <ol class="steps">
+    <li><b class="ui">Sipariş no</b> alanına numarayı yazın (yıl öneki otomatik gelir). İsterseniz <b class="ui">Firma</b> girin ve <b class="ui">Kategori</b> seçin.</li>
+    <li><b class="ui">Marka</b> ve <b class="ui">Model</b> seçin. Modelin klasörü altta listelenir; <b class="ui">Klasör veya parça ara</b> kutusuyla süzebilirsiniz.</li>
+    <li>Sipariş verilecek dosyaları işaretleyin. Alt çubukta kaç dosya seçildiği görünür.</li>
+    <li><b class="ui">Kalınlık</b>, <b class="ui">Malzeme</b> ve <b class="ui">Adet</b> seçip <b class="ui">Sipariş ver →</b> düğmesine basın.</li>
+    <li>Oluşan kalemler sağdaki <b class="ui">Oluşturulan siparişler</b> listesine düşer. <b class="ui">Güncelle</b> listeyi yeniler, çöp kutusu seçilenleri siler.</li>
+  </ol>
+  <h3>Örnek: lazer siparişi</h3>
+  <div class="pair"><figure><img src="img/lazer_01_model.png" alt="Sipariş no (713), firma, marka (TERRA) ve model seçildi; modelin klasörleri listelendi."><figcaption><span class="stepno">1</span>Sipariş no (713), firma, marka (TERRA) ve model seçildi; modelin klasörleri listelendi.</figcaption></figure><figure><img src="img/lazer_02_klasor.png" alt="KAPI klasörü açıldı: iki parça, DXF ve PDF dosyalarıyla."><figcaption><span class="stepno">2</span>KAPI klasörü açıldı: iki parça, DXF ve PDF dosyalarıyla.</figcaption></figure><figure><img src="img/lazer_03_secili.png" alt="İki dosya işaretlendi; kalınlık 2, malzeme Steel, adet 2."><figcaption><span class="stepno">3</span>İki dosya işaretlendi; kalınlık 2, malzeme Steel, adet 2.</figcaption></figure><figure><img src="img/lazer_04_sonra.png" alt="Sipariş ver: 26 - 713 için iki parça sağdaki Oluşturulan siparişler listesine düştü."><figcaption><span class="stepno">4</span>Sipariş ver: 26 - 713 için iki parça sağdaki Oluşturulan siparişler listesine düştü.</figcaption></figure></div>
+  <h3>Örnek: cam siparişi</h3><p><b class="ui">Cam-çerçeve sipariş</b> sekmesinde camı işaretleyin; ürün tipi, adet, kalınlık, renk ve cam türünü seçip <b class="ui">Seçilenleri ekle</b>'ye basın. <b class="ui">Mail gönder</b> tedarikçiye hazır bir Outlook taslağı açar. Mail kendiliğinden gitmez; kontrol edip siz gönderirsiniz.</p>
+  <div class="pair"><figure><img src="img/cam_01.png" alt="Cam-çerçeve sipariş sekmesi açıldı; sipariş no ve model aynı kaldı, 713 kartının açıldığı yazıyor."><figcaption><span class="stepno">1</span>Cam-çerçeve sipariş sekmesi açıldı; sipariş no ve model aynı kaldı, 713 kartının açıldığı yazıyor.</figcaption></figure><figure><img src="img/cam_02.png" alt="ÖN CAM klasörü açıldı, ürün tipi Cam seçildi; form adet, kalınlık, renk ve cam adı alanlarını gösterir."><figcaption><span class="stepno">2</span>ÖN CAM klasörü açıldı, ürün tipi Cam seçildi; form adet, kalınlık, renk ve cam adı alanlarını gösterir.</figcaption></figure><figure><img src="img/cam_03_form.png" alt="Cam işaretlendi; adet 1, kalınlık 5, renk Şeffaf, cam türü Düz Temperli."><figcaption><span class="stepno">3</span>Cam işaretlendi; adet 1, kalınlık 5, renk Şeffaf, cam türü Düz Temperli.</figcaption></figure><figure><img src="img/cam_04_eklendi.png" alt="Seçilenleri ekle: cam sağdaki listeye eklendi."><figcaption><span class="stepno">4</span>Seçilenleri ekle: cam sağdaki listeye eklendi.</figcaption></figure></div>
+  <figure><img src="img/cam_05_mail.png" alt="Mail gönder ile açılan Outlook taslağı: alıcı ve bilgi adresleri ayarlardan gelir, sipariş tablosu gövdede, DXF ve PDF dosyaları ekte."><figcaption><span class="stepno">5</span>Mail gönder ile açılan Outlook taslağı: alıcı ve bilgi adresleri ayarlardan gelir, sipariş tablosu gövdede, DXF ve PDF dosyaları ekte.</figcaption></figure>
+  <div class="tip">Sac dosyalarının adı model koduyla başlamalıdır. Satın alma kalemleri bu ekranın kapsamı dışındadır.</div>
+</section>
+
+<section id="siparis-takip">
+  <h2>Sipariş Takip</h2>
+  <div class="where">Menü › Sipariş › Sipariş Takip</div>
+  <figure><img src="img/MenuSiparisTakip.png" alt="Sipariş Takip ekranı"><figcaption>Her kart bir sipariştir; renkli şerit ve etiketler durumu ve türü (Sac, Cam ve Çerçeve) gösterir.</figcaption></figure>
+  <p>Açılmış siparişleri kart olarak gösterir. Her kartta sipariş numarası, marka/model özeti, oluşturan kişi, oluşturma ve son güncelleme tarihi bulunur.</p>
+  <ol class="steps">
+    <li>Belirli bir siparişi bulmak için <b class="ui">Arama ve Filtreleme</b> panelini açın.</li>
+    <li><b class="ui">Sipariş Detayları</b> ile kartın kalemlerini açın; kalem simgesi sipariş adını düzenler.</li>
+    <li>Sağ üstteki düğmeler: Trello kartına git, ▶ kartı genişlet (tablolar tüm sütunlarıyla okunur, ◀ eski boyuta döndürür) ve <b class="ui">⋯</b> menüsünde ek işlemler.</li>
+    <li><b class="ui">+ Not Ekle</b> ile siparişe not düşün; <b class="ui">Trello Hareketleri</b> kartın Trello geçmişini gösterir.</li>
+    <li>Kartlar sayfalı listelenir; alttaki <b class="ui">Önceki / Sonraki</b> ile gezin.</li>
+  </ol>
+  <h3>Örnek: demo siparişin kartı</h3>
+  <div class="pair"><figure><img src="img/takip_01.png" alt="Yeni açılan 26 - 713 kartı; Sac ile Cam ve Çerçeve etiketleri birlikte."><figcaption><span class="stepno">1</span>Yeni açılan 26 - 713 kartı; Sac ile Cam ve Çerçeve etiketleri birlikte.</figcaption></figure><figure><img src="img/takip_02_kart.png" alt="Kart genişletildi ve Sipariş Detayları açıldı: Lazer Üretim ve Cam Çerçeve tabloları tüm sütunlarıyla görünüyor."><figcaption><span class="stepno">2</span>Kart genişletildi, Sipariş Detayları açıldı: Lazer Üretim ve Cam Çerçeve tabloları tüm sütunlarıyla görünüyor.</figcaption></figure></div>
+</section>
+
+<section id="kesim">
+  <h2>Kesim</h2>
+  <div class="where">Menü › Sipariş › Kesim</div>
+  <figure><img src="img/MenuKesim.png" alt="Kesim ekranı"><figcaption>Solda kesim planları, sağda seçilen kalınlıkta kesilecek parçalar.</figcaption></figure>
+  <p>Sac kesim (nesting) planlarını hazırladığınız ve takip ettiğiniz ekrandır. Sağdaki tablo kalınlık bazında bekleyen parçaları listeler.</p>
+  <ol class="steps">
+    <li><b class="ui">Kalınlık Seçin</b> ile çalışılacak sac kalınlığını seçin; sağ panel o kalınlıktaki <b class="ui">Kesilecek</b> parçaları gösterir.</li>
+    <li>Plan adı tarihle otomatik dolar. İsterseniz <b class="ui">Plan Notu</b> yazın ve <b class="ui">Plan Oluştur</b>'a basın. <b class="ui">Plana eklenmemiş tüm parçaları ekle</b> işaretli değilse boş plan açılır.</li>
+    <li>Parçaları sağdaki tablonun <b class="ui">Plana Ekle / Çıkar</b> sütunuyla plana alın ya da plandan çıkarın.</li>
+    <li><b class="ui">Mevcut Planlar</b> listesinde arama yapabilir, <b class="ui">Tümü / Kesilmedi / Kesildi</b> ile süzebilir, <b class="ui">Dönem</b> seçebilirsiniz.</li>
+    <li>Her planın düğmeleri: <b class="ui">Kesime Gönder</b>, <b class="ui">Kilitli</b>, <b class="ui">Sil</b>, <b class="ui">Kalanları Ekle</b>, <b class="ui">Excel'e Aktar</b>, <b class="ui">Yazdır</b>, <b class="ui">Kopyala</b> ve not işlemleri. Kesim bitince <b class="ui">Kesildi</b> ile işaretleyin.</li>
+    <li>Birden fazla planı işaretleyip <b class="ui">Seçili planlar</b> satırından toplu Excel, yazdırma ya da teklif maili hazırlayabilirsiniz.</li>
+  </ol>
+  <h3>Örnek: demo plan</h3>
+  <div class="pair"><figure><img src="img/kesim_01_form.png" alt="Kalınlık 2,0 mm seçildi, Plan Notu yazıldı (Öncelikli: 26 - 713)."><figcaption><span class="stepno">1</span>Kalınlık 2,0 mm seçildi, Plan Notu yazıldı (Öncelikli: 26 - 713).</figcaption></figure><figure><img src="img/kesim_02_plan.png" alt="Plan Oluştur: boş plan (0 parça) listenin başına geldi; sağ tabloda 26 - 713 parçaları bekliyor."><figcaption><span class="stepno">2</span>Plan Oluştur: boş plan (0 parça) listenin başına geldi; sağ tabloda 26 - 713 parçaları bekliyor.</figcaption></figure><figure><img src="img/kesim_03_ekle.png" alt="İlk parçanın Plana Ekle düğmesine basıldı: parça tablodan çıktı, plan 1 parça gösteriyor."><figcaption><span class="stepno">3</span>İlk parçanın Plana Ekle düğmesine basıldı: parça tablodan çıktı, plan 1 parça gösteriyor.</figcaption></figure><figure><img src="img/kesim_05.png" alt="İkinci parça da eklendi; plan 2 parça gösteriyor."><figcaption><span class="stepno">4</span>İkinci parça da eklendi; plan 2 parça gösteriyor.</figcaption></figure><figure><img src="img/kesim_06_detay.png" alt="Detayları Göster ile planın içeriği açıldı."><figcaption><span class="stepno">5</span>Detayları Göster ile planın içeriği açıldı.</figcaption></figure><figure><img src="img/kesim_07_secili.png" alt="Plan işaretlendi; Seçili planlar satırındaki Excel, Yazdır ve Teklif Maili etkinleşti."><figcaption><span class="stepno">6</span>Plan işaretlendi; Seçili planlar satırındaki Excel, Yazdır ve Teklif Maili etkinleşti.</figcaption></figure></div><figure><img src="img/kesim_08_teklifmail.png" alt="Teklif Maili: fason kesim için taslak; parçalar zip olarak ekli, firmalar Gizli (BCC) alanında."><figcaption><span class="stepno">7</span>Teklif Maili: fason kesim için taslak; parçalar zip olarak ekli, firmalar Gizli (BCC) alanında.</figcaption></figure>
+  <div class="tip"><b class="ui">İşle</b> plan dosyalarını lazer klasörüne kopyalar ve kesim listesini (CSV) oluşturur. Yalnızca kesilecek gerçek planlarda kullanın.</div>
+</section>
+
+<section id="trello">
+  <h2>Trello Kartları</h2>
+  <div class="where">Menü › Sipariş › Trello Kartları</div>
+  <figure><img src="img/MenuTrelloKartlari.png" alt="Trello Kartları ekranı"><figcaption>Trello listeleri sütun olarak gösterilir; her kartta sipariş durumu ve hızlı işlemler vardır.</figcaption></figure>
+  <p>Trello panosundaki sipariş kartlarını (Kabin, Kargo, SSH, İhracat…) uygulamadan görmenizi sağlar.</p>
+  <ol class="steps">
+    <li>Kart etiketinde <b class="ui">Sipariş Açık</b> ya da <b class="ui">Sipariş Yok</b> yazar; yanında bağlı sipariş numarası görünür.</li>
+    <li><b class="ui">Stok sor</b> karttaki ürün için stok durumunu sorgular.</li>
+    <li><b class="ui">+ Sipariş oluştur</b> karttan doğrudan sipariş açar.</li>
+    <li>Kart altındaki <b class="ui">Notlar</b> ve <b class="ui">Trello hareketleri</b> bölümleri açılabilir.</li>
+    <li>Sağ üstteki <b class="ui">Yenile</b> kartları Trello'dan tekrar çeker; son güncelleme saati sol üstte yazar.</li>
+  </ol>
+</section>
+
+<section id="otomatik">
+  <h2>Otomatik Sipariş</h2>
+  <div class="where">Menü › Sipariş › Otomatik Sipariş</div>
+  <figure><img src="img/MenuOtomatikSiparis.png" alt="Otomatik Sipariş ekranı"><figcaption>Üstte sayaçlar, ortada onay bekleyen kartlar, sağda son işlemler günlüğü.</figcaption></figure>
+  <p>Trello kartlarını tarayıp stok bilgisine ya da sizin onayınıza göre sac ve cam siparişlerini açan otomasyonun kontrol ekranıdır.</p>
+  <ol class="steps">
+    <li>Sol üstteki durum rozeti otomasyonun çalışıp çalışmadığını gösterir. <b class="ui">Otomatik takip</b> anahtarı otomasyonu açar/kapatır, <b class="ui">Bu bilgisayar yürütsün</b> otomasyonun hangi bilgisayarda çalışacağını belirler.</li>
+    <li>Sayaçlar: <b class="ui">Onay bekleyen</b>, <b class="ui">Stok bekleyen</b>, <b class="ui">Bugün açılan sipariş</b>, <b class="ui">Kontrol gerekli</b>.</li>
+    <li><b class="ui">Onayınızı bekleyenler</b> listesindeki her kart için seçim yapın: <b class="ui">Sac ve camı aç</b>, <b class="ui">Yalnız sacı aç</b>, <b class="ui">Yalnız camı aç</b> ya da <b class="ui">Stok bekle</b>.</li>
+    <li><b class="ui">Stok bekleyenler (Excel)</b> bekleyen kartları Excel'e aktarır. Sağdaki <b class="ui">Son işlemler</b> otomasyonun yaptıklarını saat saat listeler.</li>
+  </ol>
+  <div class="tip">Düz lamine cam için sipariş açılmaz. Cam tipi koddan okunur: <i>x+x</i> lamine, <i>5 mm</i> temperli, <i>R</i> bombelidir.</div>
+</section>
+
+<section id="tum-siparisler">
+  <h2>Tüm Siparişler</h2>
+  <div class="where">Menü › Sipariş › Tüm Siparişler</div>
+  <figure><img src="img/MenuTumSiparisler.png" alt="Tüm Siparişler ekranı"><figcaption>Soldaki filtreler, sağda satır renkleriyle durum gösteren malzeme listesi.</figcaption></figure>
+  <p>Açılmış tüm sipariş kalemlerini tek tabloda listeler. <b class="ui">Lazer üretim</b>, <b class="ui">Cam</b> ve <b class="ui">Çerçeve</b> sekmeleri arasında geçiş yapabilirsiniz.</p>
+  <ol class="steps">
+    <li>Soldaki <b class="ui">Filtreler</b> panelinden anahtar kelime, durum, teslim, marka, model, sipariş no, kalınlık, malzeme, parça ve tarih aralığı seçin.</li>
+    <li>Satır renkleri durumu gösterir (teslim edildi, eksik, fazla, kesildi, büküldü…). Açıklaması <b class="ui">Satır Renkleri</b> kutusundadır; kırmızı yazı PDF'i olmayan kalemdir.</li>
+    <li><b class="ui">Sütunlar</b> ile görünen sütunları seçin. <b class="ui">Sonucu kaydet</b> ve <b class="ui">Şablonla Excel</b> filtrelenmiş listeyi dışa aktarır.</li>
+  </ol>
+  <div class="pair"><figure><img src="img/alt_tum_cam.png" alt="Cam alt sekmesi: görünüm, cam türü, kalınlık, renk, adet."><figcaption>Cam alt sekmesi: görünüm, cam türü, kalınlık, renk, adet.</figcaption></figure><figure><img src="img/alt_tum_cerceve.png" alt="Çerçeve alt sekmesi: çerçeve tipi ve adet."><figcaption>Çerçeve alt sekmesi: çerçeve tipi ve adet.</figcaption></figure></div>
+</section>
+
+<section id="toplu-kabin">
+  <h2>Toplu Kabin</h2>
+  <div class="where">Menü › Sipariş › Toplu Kabin</div>
+  <figure><img src="img/MenuTopluKabin.png" alt="Toplu Kabin ekranı"><figcaption>Tanımlı kabinler; her satırda malzeme, ekleme ve sipariş düğmeleri.</figcaption></figure>
+  <p>Bir kabinin bütün sac ve cam malzemelerini tek seferde sipariş etmek için kullanılır.</p>
+  <ol class="steps">
+    <li>Üstteki arama kutusuyla marka, model ya da kabin adına göre süzün; <b class="ui">Temizle</b> aramayı sıfırlar.</li>
+    <li><b class="ui">Malzemeler</b> kabine bağlı sac ve cam malzemelerini açar. <b class="ui">+ Ekle</b> ile yeni malzeme ekleyin.</li>
+    <li><b class="ui">Sipariş</b> düğmesi kabin adediyle birlikte toplu siparişi oluşturur.</li>
+    <li>Kalem simgesi kabini düzenler, kırmızı simge siler.</li>
+  </ol>
+  <div class="tip">Bazı markaların kabinlerinde aydınlatma koruma sacları kabinin içinde sayılır; bu kabin tanımında belirtilir.</div>
+</section>
+
+<div class="group-title">Cam</div>
+
+<section id="irsaliye">
+  <h2>Cam İrsaliyeleri</h2>
+  <div class="where">Menü › Cam › Cam İrsaliyeleri</div>
+  <figure><img src="img/MenuCamIrsaliyeleri.png" alt="Cam irsaliyeleri ekranı"><figcaption>ÖRN2026000142 irsaliyesi seçildi: sağda 7 cam/çerçeve satırı birim ve toplam fiyatlarıyla, altta genel toplam (23.110,64 ₺).</figcaption></figure>
+  <p>Cam tedarikçisinden gelen irsaliyeleri listeler ve siparişlerle eşleştirir.</p>
+  <ol class="steps">
+    <li>Soldaki listeden bir irsaliye seçin; sağda sipariş no, malzeme, model, adet, teslim alınan, birim ve toplam fiyat görünür.</li>
+    <li>Her satırda camın <b class="ui">Birim ₺</b> ve <b class="ui">Toplam ₺</b> fiyatı yazar; sağ alttaki <b class="ui">Genel toplam</b> irsaliyenin tutarıdır.</li>
+    <li><b class="ui">PDF</b> bağlantısı irsaliyenin aslını açar. Arama kutusuyla irsaliye numarasına göre süzebilirsiniz.</li>
+    <li><b class="ui">Fiyat ayarları</b> birim fiyatları tanımlar, <b class="ui">Fiyat hesapla</b> seçilen irsaliyelerin tutarını çıkarır.</li>
+  </ol>
+</section>
+
+<section id="cam-bul">
+  <h2>Uydurma Cam Bul</h2>
+  <div class="where">Menü › Cam › Uydurma Cam Bul</div>
+  <figure><img src="img/MenuCamBul.png" alt="Uydurma Cam Bul ekranı"><figcaption>Genişlik 850–1000 mm, yükseklik 650–1200 mm aralığıyla arandı: 16 cam bulundu; her satırda cam türü, ölçüler, alan ve çizim PDF'i.</figcaption></figure>
+  <p>Elinizdeki ölçüye uyan, daha önce tanımlanmış cam ve çerçeveleri bulur.</p>
+  <ol class="steps">
+    <li><b class="ui">Genişlik</b> ve <b class="ui">Yükseklik</b> için en az ve en çok değerleri girin. Boş bıraktığınız taraf sınırsız aranır.</li>
+    <li><b class="ui">Parça</b> türünü seçin ve <b class="ui">Uyan camları bul</b>'a basın.</li>
+    <li>Sonuçlarda malzeme, marka, model, cam tipi, renk, kalınlık ve ölçüler görünür. Çizimi olan satırda PDF açılabilir.</li>
+    <li><b class="ui">Formu temizle</b> girişleri sıfırlar.</li>
+  </ol>
+</section>
+
+<div class="group-title">Satın alma</div>
+
+<section id="talep">
+  <h2>Talep Takip</h2>
+  <div class="where">Menü › Satın Alma › Talep Takip</div>
+  <figure><img src="img/MenuTalepTakip.png" alt="Talep Takip ekranı"><figcaption>Satın alma talepleri; satır rengi talebin durumunu gösterir.</figcaption></figure>
+  <p>Çalışanların açtığı satın alma taleplerini izlediğiniz ekrandır. Yeni bir talep geldiğinde menüde bildirim rozeti çıkar; sekmeyi açınca rozet sıfırlanır.</p>
+  <ol class="steps">
+    <li>Arama kutusu, <b class="ui">Durum</b> ve <b class="ui">Oluşturan</b> filtreleriyle listeyi daraltın.</li>
+    <li>Her satırdaki <b class="ui">Durum</b> açılır listesinden talebi <b class="ui">Onaylandı</b>, <b class="ui">Tamamlandı</b>, <b class="ui">İptal</b> gibi durumlara alın; işleme alan kişi ve tarih otomatik yazılır.</li>
+    <li>Sağ üstteki renk açıklaması: onaylandı, tamamlandı, iptal, eksik bilgi.</li>
+    <li><b class="ui">Satın alma planları</b> sekmesi taleplerden oluşturulan planları gösterir.</li>
+  </ol>
+  <figure><img src="img/alt_talep_planlar.png" alt="Satın alma planları alt sekmesi."><figcaption>Satın alma planları alt sekmesi.</figcaption></figure>
+</section>
+
+<section id="teklif-olustur">
+  <h2>Teklif Oluştur</h2>
+  <div class="where">Menü › Satın Alma › Teklif Oluştur</div>
+  <figure><img src="img/MenuTeklifOlustur.png" alt="Teklif Oluştur ekranı"><figcaption>1: talepten ürün seçimi · 2: teklif satırları.</figcaption></figure>
+  <p>Satın alma taleplerinden fiyat teklifi hazırlayıp tedarikçi firmalara e-postayla göndermenizi sağlar.</p>
+  <ol class="steps">
+    <li><b class="ui">1 · Talepten seçin</b> listesinde istediğiniz satırın yanındaki <b class="ui">Ekle</b>'ye basın; ürün sağdaki teklif satırlarına geçer. Listede ürün yoksa <b class="ui">+ Elle satır ekle</b> kullanın.</li>
+    <li><b class="ui">2 · Teklif satırları</b> tablosunda ürün kodu, adet, birim, tip ve teklif istenecek firmaları düzenleyin.</li>
+    <li>Çizim ya da teknik dosyaları alttaki alana sürükleyin; aynı isimli dosyalar tek ürün olur.</li>
+    <li>Gerekirse <b class="ui">Firma ekle</b> ile yeni tedarikçi tanımlayın, sonra <b class="ui">Teklifi oluştur</b>'a basın.</li>
+  </ol>
+  <h3>Örnek: demo teklif</h3>
+  <div class="pair"><figure><img src="img/teklif_01.png" alt="Talepten seçin listesinde iki talebin Ekle düğmesine basıldı; ürünler teklif satırlarına geçti."><figcaption><span class="stepno">1</span>Talepten seçin listesinde iki talebin Ekle düğmesine basıldı; ürünler teklif satırlarına geçti.</figcaption></figure><figure><img src="img/teklif_03_firma.png" alt="Her satırda tip seçildi (CNC / TORNA / BURÇ); Firmalar listesi seçime hazır."><figcaption><span class="stepno">2</span>Her satırda tip seçildi (CNC / TORNA / BURÇ); Firmalar listesi seçime hazır.</figcaption></figure><figure><img src="img/teklif_04_firmalar.png" alt="Firmalar listesinde bu tipe kayıtlı iki firma işaretlendi."><figcaption><span class="stepno">3</span>Firmalar listesinde bu tipe kayıtlı iki firma işaretlendi.</figcaption></figure></div>
+  <figure><img src="img/teklif_05_hazir.png" alt="Satırlar hazır: iki ürün, tip ve ikişer firma seçili."><figcaption><span class="stepno">4</span>Satırlar hazır: iki ürün, tip ve ikişer firma seçili.</figcaption></figure><figure><img src="img/teklif_06_mail.png" alt="Teklifi oluştur ile açılan Outlook taslağı (BK-TEKLIF-4): firmalar Gizli (BCC) alanında, ürünler gövdedeki tabloda."><figcaption><span class="stepno">5</span>Teklifi oluştur ile açılan Outlook taslağı (BK-TEKLIF-4): firmalar Gizli (BCC) alanında, ürünler gövdedeki tabloda.</figcaption></figure>
+  <div class="tip">Teklif, seçilen firmalar için e-posta gövdesine aktarılır; göndermeden önce maili kontrol edin.</div>
+</section>
+
+<section id="teklifler">
+  <h2>Teklifler</h2>
+  <div class="where">Menü › Satın Alma › Teklifler</div>
+  <figure><img src="img/MenuTeklifler.png" alt="Teklifler ekranı"><figcaption>Seçilen teklifte firma bazında fiyat tabloları.</figcaption></figure>
+  <p>Gönderilen tekliflere firmalardan gelen fiyatları girip karşılaştırdığınız ekrandır.</p>
+  <ol class="steps">
+    <li>Üstteki <b class="ui">Teklif</b> kutusundan teklifi seçin.</li>
+    <li><b class="ui">Teklifleri Düzenle</b> sekmesinde her firmanın tablosuna birim fiyat, KDV/tevkifat, termin, ödeme şekli ve ödeme tarihini girin; toplamlar kendiliğinden hesaplanır.</li>
+    <li><b class="ui">+ Bu firmaya başka ödeme tipi ekle</b> aynı firma için ikinci bir ödeme seçeneği açar. Firmanın gönderdiği belgeleri <b class="ui">Teklif Dokümanları</b> alanına ekleyin.</li>
+    <li><b class="ui">Ürünler</b>, <b class="ui">Firmalar</b>, <b class="ui">Yaklaşan Ödemeler</b> ve <b class="ui">Tüm Firma Bilgileri</b> sekmeleri aynı veriye farklı açılardan bakar.</li>
+    <li>Değişikliklerden sonra sağ alttaki <b class="ui">Kaydet</b>'e basın.</li>
+  </ol>
+  <h3>Alt sekmeler</h3><figure><img src="img/teklifler_01.png" alt="Teklifleri Düzenle: firma bazında fiyat girişi."><figcaption>Teklifleri Düzenle: firma bazında fiyat girişi.</figcaption></figure><figure><img src="img/teklifler_02.png" alt="Ürünler: genel toplam ve ürün bazında karşılaştırma; en uygun firma işaretlenir, Onaylama Maili Gönder / Excel'e Aktar."><figcaption>Ürünler: genel toplam ve ürün bazında karşılaştırma; en uygun firma işaretlenir, Onaylama Maili Gönder / Excel'e Aktar.</figcaption></figure><figure><img src="img/teklifler_03.png" alt="Firmalar: her firmanın verdiği fiyatlar."><figcaption>Firmalar: her firmanın verdiği fiyatlar.</figcaption></figure><figure><img src="img/teklifler_04.png" alt="Yaklaşan Ödemeler: ödeme tarihine göre sıralı; gecikenler kırmızı."><figcaption>Yaklaşan Ödemeler: ödeme tarihine göre sıralı; gecikenler kırmızı.</figcaption></figure><figure><img src="img/teklifler_05.png" alt="Tüm Firma Bilgileri: tedarikçi kartları, iletişim ve ürün tipleri; kalem ile düzenlenir."><figcaption>Tüm Firma Bilgileri: tedarikçi kartları, iletişim ve ürün tipleri; kalem ile düzenlenir.</figcaption></figure>
+</section>
+
+<div class="group-title">Stok</div>
+
+<section id="yari-mamul">
+  <h2>Yarı Mamül Stok</h2>
+  <div class="where">Menü › Stok › Yarı Mamül Stok</div>
+  <figure><img src="img/MenuYariMamulStok.png" alt="Yarı Mamül Stok ekranı"><figcaption>Her malzemenin akıştaki adetleri: sipariş → kesim → teslim → stok.</figcaption></figure>
+  <p>Kesilmiş parçaların hangi aşamada kaç adet olduğunu gösterir. Üstteki <b class="ui">Malzeme akışı</b> şeridi sütunların sırasını özetler.</p>
+  <ol class="steps">
+    <li>Arama kutusuna malzeme kodunu yazın.</li>
+    <li>Sütunlar: <b class="ui">Sipariş</b>, <b class="ui">Kesim bekleyen</b>, <b class="ui">Kesilen</b>, <b class="ui">Teslimat bekleyen</b>, <b class="ui">Teslim edilen</b>, <b class="ui">Stok</b>.</li>
+    <li><b class="ui">Yenile</b> güncel adetleri çeker; kaç kayıt yüklendiği yanında yazar.</li>
+  </ol>
+</section>
+
+<section id="sac-stok">
+  <h2>Sac Stok Yönetimi</h2>
+  <div class="where">Menü › Stok › Sac Stok Yönetimi</div>
+  <figure><img src="img/MenuSacStokYonetimi.png" alt="Sac Stok Yönetimi ekranı"><figcaption>Solda kesim özeti, sağda kalınlık bazında sac stoku.</figcaption></figure>
+  <p>Ham sac stokunu, kesimde harcanan sacı, fireyi ve hurdayı izler.</p>
+  <ol class="steps">
+    <li><b class="ui">Başlangıç / Bitiş</b> tarihleri, <b class="ui">Kalınlık</b> ve <b class="ui">Kesim</b> filtreleriyle dönemi seçin.</li>
+    <li><b class="ui">Kesim özeti</b>: toplam/yerleştirilen parça, kullanılan sac, fire ve hurda yüzdeleri, kalan ve toplam ağırlıklar.</li>
+    <li>Sağdaki <b class="ui">Sac stok</b> panelinde her kalınlığın adet ve kilogram olarak stok, kullanılan ve kalan değerleri görünür. <b class="ui">+ Stok ekle</b> ile giriş yapın.</li>
+  </ol>
+  <div class="tip"><b>Stok kendiliğinden düşer:</b> Kesimde üretilen kesim raporuna göre kullanılan sac, hem <b>adet</b> hem <b>kilogram</b> olarak stoktan düşülür. Elle düşmeniz gerekmez; yalnızca gelen sacı <b class="ui">+ Stok ekle</b> ile girmeniz yeterlidir.</div>
+</section>
+
+<section id="malzemeler">
+  <h2>Malzemeler</h2>
+  <div class="where">Menü › Stok › Malzemeler</div>
+  <figure><img src="img/MenuMalzemeler.png" alt="Malzemeler ekranı"><figcaption>Arama yapılana kadar liste boş görünür.</figcaption></figure>
+  <p>Malzeme ve model tanımlarını aradığınız ekrandır.</p>
+  <ol class="steps">
+    <li>Üstteki kutuya malzeme adı ya da kodu yazın; sonuçlar yazdıkça listelenir.</li>
+    <li>Sonuçlar <b class="ui">Sac malzemeler</b> ve <b class="ui">Cam malzemeler</b> alt sekmelerine ayrılır; sekme başlığında kaç sonuç bulunduğu yazar.</li>
+    <li><b class="ui">Temizle</b> aramayı sıfırlar.</li>
+  </ol>
+  <div class="pair"><figure><img src="img/alt_malz_sac.png" alt="Arama sonucu, Sac malzemeler sekmesi."><figcaption>Arama sonucu, Sac malzemeler sekmesi.</figcaption></figure><figure><img src="img/alt_malz_cam.png" alt="Arama sonucu, Cam malzemeler sekmesi: ölçüler, çerçeve tipi, görünüm."><figcaption>Arama sonucu, Cam malzemeler sekmesi: ölçüler, çerçeve tipi, görünüm.</figcaption></figure></div>
+</section>
+
+<div class="group-title">Genel</div>
+
+<section id="notlarim">
+  <h2>Notlarım</h2>
+  <div class="where">Menü › Genel › Notlarım</div>
+  <figure><img src="img/MenuNotlarim.png" alt="Notlarım ekranı"><figcaption>Renkli yapışkan notlar panosu.</figcaption></figure>
+  <p>Size özel notlar. Panoda istediğiniz yere taşıyabilirsiniz.</p>
+  <ol class="steps">
+    <li>Sağ üstteki <b class="ui">+ Not ekle</b> ile yeni not açın.</li>
+    <li>Notu tutup sürükleyerek yerini değiştirin; konum kaydedilir.</li>
+    <li>Notun köşesindeki çöp kutusu notu siler.</li>
+  </ol>
+</section>
+
+<section id="kullanicilar">
+  <h2>Kullanıcılar</h2>
+  <div class="where">Menü › Genel › Kullanıcılar</div>
+  <figure><img src="img/MenuKullanicilar.png" alt="Kullanıcılar ekranı"><figcaption>Solda kullanıcı listesi, sağda seçilen kişinin bilgileri ve yetkileri.</figcaption></figure>
+  <p>Kullanıcıların kişisel bilgilerini ve sekme yetkilerini yönetir.</p>
+  <ol class="steps">
+    <li>Soldan bir kullanıcı seçin.</li>
+    <li><b class="ui">Kişisel bilgiler</b> bölümünde ad, soyad, rol, departman, e-posta ve doğum tarihini düzenleyin.</li>
+    <li><b class="ui">Yetkiler</b> altındaki anahtarlarla erişimi ayarlayın: <b class="ui">Sayfa erişimi</b>, <b class="ui">Yönetim</b> ve <b class="ui">Teslim-Kontrol uygulaması</b>.</li>
+    <li>Sağ üstteki <b class="ui">Değişiklikleri kaydet</b>'e basın.</li>
+  </ol>
+</section>
+
+<section id="kullanici-ekle">
+  <h2>Kullanıcı Ekle</h2>
+  <div class="where">Menü › Genel › Kullanıcı Ekle</div>
+  <figure><img src="img/MenuKullaniciEkle.png" alt="Kullanıcı Ekle ekranı"><figcaption>1: hesap bilgileri · 2: yetkiler.</figcaption></figure>
+  <ol class="steps">
+    <li><b class="ui">1 · Hesap ve kişisel bilgiler</b>: kullanıcı adı ve şifre zorunludur; ad, soyad, e-posta, departman, rol ve doğum tarihi isteğe bağlıdır.</li>
+    <li><b class="ui">2 · Yetkiler</b>: sayfa erişimi, yönetim ve sipariş takip detay izinlerini açın. <b class="ui">Hepsini seç</b> ve <b class="ui">Temizle</b> kısayolları vardır.</li>
+    <li>Sağ alttaki <b class="ui">Kullanıcıyı ekle</b> ile kaydedin.</li>
+  </ol>
+</section>
+
+<section id="ayarlar">
+  <h2>Ayarlar</h2>
+  <div class="where">Menü › Genel › Ayarlar</div>
+  <figure><img src="img/MenuAyarlar.png" alt="Ayarlar ekranı"><figcaption>Veritabanı, dosya yolu ve mail ayarları.</figcaption></figure>
+  <p>Uygulamanın bağlandığı sunucuyu ve klasörleri tanımlar. Yalnızca yetkili kullanıcılar görür.</p>
+  <ol class="steps">
+    <li><b class="ui">Veritabanı bağlantı ayarları</b>: sunucu, veritabanı, kullanıcı adı ve şifre.</li>
+    <li><b class="ui">Dosya yolu ayarları</b>: çizimler, üretim, DATA ve güncelleme klasörleri. Her satırdaki <b class="ui">Gözat</b> ile klasör seçin.</li>
+    <li><b class="ui">Mail ayarları</b>: gönderen e-posta, protokol, gelen/giden sunucu ve portlar, varsayılan alıcılar.</li>
+  </ol>
+  <div class="tip">Bu alanlardaki yanlış bir değer tüm kullanıcıların bağlantısını etkileyebilir. Değiştirmeden önce mevcut değerleri not alın.</div>
+</section>
+</main>
+</div>
+
+<div class="lightbox" id="lb"><img alt=""></div>
+<script>
+  const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+  document.querySelectorAll('figure img').forEach(img => img.addEventListener('click', () => { lbImg.src = img.src; lb.classList.add('open'); }));
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+</script>
+</body>
+</html>

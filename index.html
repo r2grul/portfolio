@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uygulama Rehberleri — Ertuğrul Aydın</title>
+<meta name="description" content="Kabin üretimi için geliştirdiğim masaüstü uygulamalarının (WPF / .NET / SQL Server) ekran görüntülü kullanım rehberleri.">
+<style>
+  :root {
+    --bg: #f6f7fb; --card: #ffffff; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0;
+    --accent: #1e5a96; --accent-soft: #e8f0f9;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; font-size: 15px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 48px 28px 72px; }
+  header h1 { font-size: 34px; margin: 0 0 6px; }
+  header .by { color: var(--accent); font-weight: 600; margin: 0 0 14px; }
+  header p { color: var(--muted); margin: 0 0 10px; max-width: 820px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+  .chips span { background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 3px 12px; font-size: 13px; font-weight: 600; }
+  h2 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 44px 0 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+  .app { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); transition: box-shadow .15s, transform .15s; }
+  .app:hover { box-shadow: 0 8px 22px rgba(15,23,42,.12); transform: translateY(-2px); }
+  .app img { width: 100%; aspect-ratio: 760 / 411; object-fit: cover; object-position: top; display: block; border-bottom: 1px solid var(--line); }
+  .app .body { padding: 16px 20px 18px; display: flex; flex-direction: column; flex: 1; }
+  .app b { font-size: 19px; }
+  .app p { margin: 4px 0 12px; color: var(--muted); font-size: 14px; }
+  .app ul { margin: 0 0 14px; padding-left: 18px; font-size: 13.5px; }
+  .app ul li { margin: 2px 0; }
+  .app .star { color: var(--accent); font-weight: 600; }
+  .app .go { margin-top: auto; color: var(--accent); font-weight: 600; font-size: 14px; }
+  .note { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; color: var(--muted); font-size: 14px; }
+  footer { margin-top: 36px; color: var(--muted); font-size: 13px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Uygulama Rehberleri</h1>
+  <p class="by">Ertuğrul Aydın</p>
+  <p>Bir kabin üreticisinin sipariş, satın alma, lazer kesim, maliyet, teslim ve etiket süreçleri için geliştirdiğim beş masaüstü uygulamasının ekran görüntülü kullanım rehberleri. Uygulamalar aynı SQL Server veritabanını paylaşır ve birbirini besler: siparişi açılan parçalar kesime, kesilenler maliyet ve teslim kontrolüne, teslim alınanlar etikete gider.</p>
+  <p>Her rehberin ilk bölümü uygulamanın ekranlarını tanıtır, ikinci bölümü ise baştan sona iş akışlarını adım adım gösterir.</p>
+  <div class="chips"><span>C#</span><span>.NET / WPF</span><span>MVVM</span><span>SQL Server</span><span>Yapay zekâ entegrasyonu</span><span>CSV / PDF / mail çıktıları</span></div>
+</header>
+
+<h2>Rehberler</h2>
+<div class="grid">
+  <a class="app" href="bk-siparis/">
+    <img src="kapak/bk-siparis.jpg" alt="BK Sipariş — Sipariş Takip ekranı" loading="lazy">
+    <div class="body">
+      <b>BK Sipariş</b>
+      <p>Sipariş, satın alma ve stok süreçlerini tek yerden yöneten ana uygulama.</p>
+      <ul>
+        <li class="star">Yapay zekâ ile sipariş yönetimi</li>
+        <li>Kalınlığa göre sac sipariş ve kesime gönderme</li>
+        <li>Toplu teklif maili, fiyat karşılaştırma ve teklif onayı</li>
+        <li>İrsaliye takibi, sac plaka ve yarı mamül stok</li>
+      </ul>
+      <span class="go">Rehberi aç →</span>
+    </div>
+  </a>
+  <a class="app" href="lazer-kesim/">
+    <img src="kapak/lazer-kesim.jpg" alt="Lazer Kesim — Kesimler ekranı" loading="lazy">
+    <div class="body">
+      <b>Lazer Kesim</b>
+      <p>Nesting planlarını kesime hazırlayan ve kesimi baştan sona izleyen uygulama.</p>
+      <ul>
+        <li class="star">Metalix’e uyumlu CSV çıktısı</li>
+        <li class="star">Kesilen sac adet ve kg olarak stoktan düşer</li>
+        <li>Planları tek kesim altında birleştirme, kesim takibi</li>
+        <li>Metalix raporundan ağırlık, hurda ve süre işleme</li>
+      </ul>
+      <span class="go">Rehberi aç →</span>
+    </div>
+  </a>
+  <a class="app" href="kesim-maliyet/">
+    <img src="kapak/kesim-maliyet.jpg" alt="Kesim Maliyet — maliyet ekranı" loading="lazy">
+    <div class="body">
+      <b>Kesim Maliyet</b>
+      <p>Lazerde kesilen parçaların maliyetini hesaplayıp fiyat teklifi hazırlayan uygulama.</p>
+      <ul>
+        <li>Parametrelerle maliyet hesabı</li>
+        <li>Müşteriye özel fiyatlandırma</li>
+        <li>Modern PDF fiyat teklifi</li>
+      </ul>
+      <span class="go">Rehberi aç →</span>
+    </div>
+  </a>
+  <a class="app" href="teslim-kontrol/">
+    <img src="kapak/teslim-kontrol.jpg" alt="Teslim Kontrol — sac teslim ekranı" loading="lazy">
+    <div class="body">
+      <b>Teslim Kontrol</b>
+      <p>Gelen malzemelerin teslim alınması, kalite kontrolü ve stok hareketleri.</p>
+      <ul>
+        <li>Satın alma talebi açma</li>
+        <li>Sac, cam ve çerçeve teslim ve kalite kontrol</li>
+        <li>Yarı mamülü stoktan üretime gönderme</li>
+        <li>İrsaliyelerin otomatik ve elle işlenmesi</li>
+      </ul>
+      <span class="go">Rehberi aç →</span>
+    </div>
+  </a>
+  <a class="app" href="bk-etk/">
+    <img src="kapak/bk-etk.jpg" alt="BK-ETK — mamül etiketi ekranı" loading="lazy">
+    <div class="body">
+      <b>BK-ETK</b>
+      <p>Üretilen mamüller için etiket hazırlayan ve etiket yazıcısına basan uygulama.</p>
+      <ul>
+        <li>Şablonlarla etiket tasarımı</li>
+        <li>Mamül, sepet ve özel etiket basımı</li>
+      </ul>
+      <span class="go">Rehberi aç →</span>
+    </div>
+  </a>
+</div>
+
+<h2>Not</h2>
+<div class="note">Rehberlerdeki bütün ekran görüntüleri uygulamaların demo modunda, örnek verilerle dolu ayrı bir demo veritabanından alınmıştır. Firma, kişi, sipariş ve fiyat bilgileri gerçek değildir; firma adı ve logosu gizlenmiştir. Uygulamaların kaynak kodu firmaya ait olduğu için paylaşılmamaktadır.</div>
+
+<footer>© 2026 Ertuğrul Aydın</footer>
+</div>
+</body>
+</html>

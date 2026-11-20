@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BK-ETK — Kullanım Rehberi</title>
+<style>
+  :root {
+    --bg: #f6f7fb; --card: #ffffff; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0;
+    --accent: #1e5a96; --accent-soft: #e8f0f9; --note: #fff8e6; --note-line: #f2d48a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; font-size: 15px; }
+  .layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); max-width: 1360px; margin: 0 auto; }
+  nav { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 28px 18px; border-right: 1px solid var(--line); background: var(--card); }
+  nav .brand { font-weight: 700; font-size: 17px; margin-bottom: 4px; }
+  nav .sub { color: var(--muted); font-size: 12.5px; margin-bottom: 18px; }
+  nav h4 { margin: 18px 0 6px; font-size: 11px; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+  nav a { display: block; padding: 4px 10px; border-radius: 8px; color: var(--ink); text-decoration: none; font-size: 13.5px; }
+  nav a:hover { background: var(--accent-soft); color: var(--accent); }
+  main { padding: 36px 48px 80px; }
+  header.hero { margin-bottom: 36px; }
+  header.hero h1 { font-size: 30px; margin: 0 0 6px; }
+  header.hero p { color: var(--muted); margin: 0; max-width: 760px; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 28px 32px; margin-bottom: 28px; scroll-margin-top: 16px; }
+  section h2 { margin: 0 0 4px; font-size: 22px; }
+  section .where { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .group-title { margin: 44px 0 14px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  figure { margin: 16px 0 18px; }
+  figure img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; display: block; cursor: zoom-in; }
+  figcaption { color: var(--muted); font-size: 12.5px; margin-top: 6px; }
+  ol.steps { padding-left: 22px; margin: 8px 0; }
+  ol.steps li { margin: 5px 0; }
+  .tip { background: var(--note); border: 1px solid var(--note-line); border-radius: 10px; padding: 10px 14px; font-size: 14px; margin-top: 12px; }
+  .intro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 10px; }
+  .intro-grid div { background: var(--accent-soft); border-radius: 10px; padding: 12px 14px; font-size: 14px; }
+  b.ui { font-weight: 600; color: var(--accent); }
+  .part { margin: 52px 0 6px; padding: 14px 20px; border-radius: 12px; background: var(--accent); color: #fff; }
+  .part b { font-size: 20px; display: block; }
+  .part span { font-size: 13.5px; opacity: .88; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin: 10px 0 8px; }
+  .gallery a { display: block; text-decoration: none; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; transition: box-shadow .15s, transform .15s; }
+  .gallery a:hover { box-shadow: 0 6px 18px rgba(15,23,42,.12); transform: translateY(-2px); }
+  .gallery img { width: 100%; display: block; border-bottom: 1px solid var(--line); }
+  .gallery .lbl { padding: 9px 12px 10px; font-size: 13.5px; }
+  .gallery .lbl b { display: block; font-size: 14px; }
+  .gallery .lbl small { color: var(--muted); }
+  .gallery .sub { border-color: #c9d9ec; }
+  .gallery .sub .lbl { background: var(--accent-soft); }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pair figure { margin: 10px 0; }
+  .stepno { display: inline-block; min-width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 11px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; margin-right: 6px; }
+  @media (max-width: 900px) { .pair { grid-template-columns: 1fr; } }
+  .lightbox { position: fixed; inset: 0; background: rgba(15,23,42,.85); display: none; align-items: center; justify-content: center; z-index: 10; cursor: zoom-out; padding: 20px; }
+  .lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; }
+  .lightbox.open { display: flex; }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } nav { position: static; height: auto; } main { padding: 20px; } section { padding: 20px; } }
+  nav a.home { color: var(--accent); font-weight: 600; margin-bottom: 14px; }
+/* about */
+  .about { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px 28px; margin-bottom: 36px; }
+  .about h2 { margin: 0 0 6px; font-size: 22px; }
+  .about > p { margin: 0 0 16px; color: var(--muted); max-width: 820px; }
+  .about .star { border-radius: 12px; background: var(--accent); color: #fff; padding: 16px 20px; margin: 0 0 16px; }
+  .about .star .tag { display: inline-block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; background: rgba(255,255,255,.18); border-radius: 999px; padding: 2px 10px; margin-bottom: 6px; }
+  .about .star b { display: block; font-size: 18px; margin-bottom: 2px; }
+  .about .star span { font-size: 14px; opacity: .92; }
+  .about .star.soft { background: var(--accent-soft); color: var(--ink); border-left: 5px solid var(--accent); }
+  .about .star.soft .tag { background: var(--accent); color: #fff; }
+  .about .star.soft b { color: var(--accent); }
+  .about .feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+  .about .feat { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; background: var(--bg); }
+  .about .feat b { display: block; font-size: 14px; }
+  .about .feat span { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <a class="home" href="../">← Tüm rehberler</a>
+  <div class="brand">BK-ETK</div>
+  <div class="sub">Etiket yazdırma · kullanım rehberi</div>
+  <a href="#ne-ise-yarar">Ne işe yarar?</a>
+  <a href="#baslangic">Başlarken</a><h4>1 · Genel bakış</h4><a href="#ozet">Etiket türleri ve pencereler</a><h4>2 · Ayrıntılı kullanım</h4><a href="#siparis">Sipariş seçme</a><a href="#mamul">Mamül Etiketi</a><a href="#sepet">Sepet Etiketi</a><a href="#ozel">Özel etiket</a><a href="#tasarla">Etiket Tasarımcısı</a><a href="#yazdir">Yazdırma</a><a href="#yeni">Yeni sipariş</a><a href="#ayarlar">Ayarlar</a>
+</nav>
+
+<main>
+<header class="hero">
+  <h1>BK-ETK Etiket Yazdırma Rehberi</h1>
+  <p>Siparişlerin parça, sepet ve özel etiketlerini hazırlayıp etiket yazıcısına basan uygulama. Rehber iki bölümden oluşur: önce etiket türleri ve pencereler özetlenir, ardından her biri demo siparişlerle adım adım anlatılır. Ekranlardaki bütün veriler uydurmadır: uygulama demo modunda, BK Sipariş rehberiyle aynı yerel test veritabanıyla açılmıştır.</p>
+</header>
+
+<!--about-->
+<section id="ne-ise-yarar" class="about">
+  <h2>Uygulama ne işe yarar?</h2>
+  <p>BK-ETK, üretilen mamüller için etiket hazırlayan ve etiket yazıcısına basan uygulamadır.</p>
+  <div class="feats">
+    <div class="feat"><b>Şablonla etiket tasarımı</b><span>Mamül, sepet ve özel etiketler için şablon tasarlama</span></div>
+    <div class="feat"><b>Etiket basımı</b><span>Seçilen parçaların etiketlerini etiket yazıcısına basma</span></div>
+  </div>
+</section>
+<!--/about-->
+
+
+
+
+
+<section id="baslangic">
+  <h2>Başlarken</h2>
+  <div class="where">Ana pencere</div>
+  <figure><img src="img/ana.png" alt="BK-ETK ana penceresi (demo modu): solda siparişler, sağda etiket türü, müşteri, operatör, tarih ve önizleme; altta yazıcı, kopya, PRN kaydet ve Yazdır."><figcaption>BK-ETK ana penceresi (demo modu): solda siparişler, sağda etiket türü, müşteri, operatör, tarih ve önizleme; altta yazıcı, kopya, PRN kaydet ve Yazdır.</figcaption></figure>
+  <ol class="steps"><li>Uygulama açılırken güncelleme klasörünü kontrol eder; yeni sürüm varsa kendini günceller ve yeniden açılır. Başlıktaki sürüm satırı sonucu gösterir.</li><li>Siparişler, modeller, müşteri ve operatör listeleri açılışta bir kez okunur. <b class="ui">Yenile</b> hepsini veritabanından yeniden okur.</li><li>Alttaki durum satırı yapılan işin sonucunu ya da hatayı yazar (yeşil nokta: tamam, kırmızı: hata).</li><li>Etiket boyutu 100 × 70 mm’dir (800 × 560 nokta). Önizleme etiketin birebir görüntüsüdür.</li></ol>
+  <div class="tip"><b>Demo modu:</b> Ekranlar uygulamanın <b class="ui">--demo</b> argümanıyla açılan demo modunda alınmıştır. Bu modda siparişler, modeller, müşteri ve operatör listeleri yalnızca yerel <i>BKSiparis_Demo</i> veritabanından gelir; yazıcıya hiçbir şey gönderilmez, güncelleme kontrolü yapılmaz, yerel dosyalar ayrı bir demo klasörüne yazılır. Etikette firma logosu yerine “DEMO KABİN” yazar. Siparişler, markalar, müşteriler ve kişiler uydurmadır.</div>
+</section>
+<div class="part"><b>1. Bölüm · Genel bakış</b><span>Üç etiket türü ve uygulamanın pencereleri. Bir kutuya tıklayınca ilgili anlatıma gidersiniz.</span></div>
+<section id="ozet">
+  <h2>Etiket türleri ve pencereler</h2>
+  <div class="where">Sağ üstteki etiket türü seçimi ve açılan pencereler</div>
+  <div class="group-title" style="margin-top:22px">Etiket türleri</div>
+  <div class="gallery"><a href="#mamul"><img src="img/mamul.png" alt="Mamül Etiketi" loading="lazy"><div class="lbl"><b>Mamül Etiketi</b><small>Her parça için kalite kontrol etiketi</small></div></a><a href="#sepet"><img src="img/sepet.png" alt="Sepet Etiketi" loading="lazy"><div class="lbl"><b>Sepet Etiketi</b><small>Bir siparişin sepetindeki parçaların listesi</small></div></a><a href="#ozel"><img src="img/ozel.png" alt="Özel" loading="lazy"><div class="lbl"><b>Özel</b><small>Kendi tasarladığınız şablonla etiket</small></div></a></div>
+  <div class="group-title">Pencereler</div>
+  <div class="gallery"><a href="#tasarla"><img src="img/tasarla_02.png" alt="Etiket Tasarımcısı" loading="lazy"><div class="lbl"><b>Etiket Tasarımcısı</b><small>Özel şablon oluşturma ve düzenleme</small></div></a><a href="#yeni"><img src="img/yeni_01.png" alt="Yeni sipariş" loading="lazy"><div class="lbl"><b>Yeni sipariş</b><small>Veritabanında olmayan sipariş için etiket satırları</small></div></a><a href="#ayarlar"><img src="img/ayarlar.png" alt="Ayarlar" loading="lazy"><div class="lbl"><b>Ayarlar</b><small>Güncelleme klasörü ve sürüm</small></div></a></div>
+</section>
+<div class="part"><b>2. Bölüm · Ayrıntılı kullanım</b><span>Demo sipariş <b>26 - 713</b> (TERRA 5.0 ton dizel) için mamül, sepet ve özel etiket; ardından veritabanında olmayan <b>26 - K 220</b> siparişinin elle eklenmesi.</span></div>
+<section id="siparis">
+  <h2>Sipariş seçme</h2>
+  <div class="where">Sol panel › Sipariş No</div>
+  <ol class="steps"><li><b class="ui">Sipariş No</b> kutusuna yazdıkça tablo süzülür (ör. “713”); listeden de seçebilirsiniz. <b class="ui">Temizle</b> filtreyi kaldırır.</li><li>Her sipariş, modelinin her parçası için bir satıra açılır: SAĞ KAPI, SOL KAPI, ÖN CAM, ÖN KARKAS, ARKA CAM, ARKA KARKAS, TAVAN CAMI ve TAVAN KARKASI (12V/24V çeşitleriyle). Ürün kodu, model kodunun sonuna parçanın sonekinin eklenmesiyle oluşur (T50D01 + 11 → T50D0111).</li><li>Bir satıra tıklayınca önizleme o parçayı gösterir. Ctrl ya da Shift ile birden çok satır seçerseniz hepsi sırayla basılır.</li><li><b class="ui">Kaynak</b> sütununda “Yerel” yazan satırlar veritabanından değil, <b class="ui">Yeni sipariş</b> ile eklenen yerel kayıttan gelir.</li></ol>
+  <figure><img src="img/siparis.png" alt="“713” yazıldı: 26 - 713 siparişinin 16 parça satırı listelendi; ilk satır (SAĞ KAPI, T50D0111) seçili ve önizlemede."><figcaption>“713” yazıldı: 26 - 713 siparişinin 16 parça satırı listelendi; ilk satır (SAĞ KAPI, T50D0111) seçili ve önizlemede.</figcaption></figure>
+</section>
+<section id="mamul">
+  <h2>Mamül Etiketi</h2>
+  <div class="where">Etiket › Mamül Etiketi</div>
+  <div class="pair"><figure><img src="img/mamul.png" alt="Müşteri “Demo Müşteri”, operatör “Deniz Yılmaz” seçildi; etiket sipariş no, parça adı, ürün kodu, model, müşteri, operatör ve tarihle hazır."><figcaption>Müşteri “Demo Müşteri”, operatör “Deniz Yılmaz” seçildi; etiket sipariş no, parça adı, ürün kodu, model, müşteri, operatör ve tarihle hazır.</figcaption></figure><div><ol class="steps"><li><b class="ui">Müşteri</b> ve <b class="ui">Operatör</b> listeden seçilir ya da yazılır; yazdığınız metin adın herhangi bir yerinde aranır.</li><li><b class="ui">Tarih</b> bugündür; yazarak ya da takvimden değiştirebilirsiniz.</li><li>Operatör boşken yazdırılamaz. Seçilen müşteri, yazdırma sonrası siparişe kaydedilir ve aynı sipariş bir dahaki seçilişinde kendiliğinden gelir.</li><li>Sağdaki <b class="ui">QUALITY CONTROL OK</b> damgası kalite kontrolden geçen parçayı işaretler.</li></ol></div></div>
+  <figure><img src="img/etiket_mamul.png" alt="Basılacak mamül etiketinin yakın görünümü."><figcaption>Basılacak mamül etiketinin yakın görünümü.</figcaption></figure>
+</section>
+<section id="sepet">
+  <h2>Sepet Etiketi</h2>
+  <div class="where">Etiket › Sepet Etiketi</div>
+  <figure><img src="img/sepet.png" alt="İÇİNDEKİLER’den SAĞ KAPI, SOL KAPI, ÖN CAM, ARKA CAM ve TAVAN CAMI işaretlendi; etikette sipariş, model ve içindekiler listesi."><figcaption>İÇİNDEKİLER’den SAĞ KAPI, SOL KAPI, ÖN CAM, ARKA CAM ve TAVAN CAMI işaretlendi; etikette sipariş, model ve içindekiler listesi.</figcaption></figure>
+  <ol class="steps"><li>Sepete giren parçaları <b class="ui">İÇİNDEKİLER</b> listesinde işaretleyin. <b class="ui">Tümü</b> ve <b class="ui">Hiçbiri</b> hepsini seçer ya da temizler.</li><li>Parçanın solundaki kutuya adet yazın; 1’den büyükse etikette “x adet” olarak basılır.</li><li>Listede olmayan bir parçayı (ör. SU OLUĞU) üstteki kutuya yazıp <b class="ui">+</b> ya da Enter ile ekleyin; eklenen parça kalıcı olarak listede kalır.</li><li>Sepet etiketi sipariş ve model başına bir tane basılır; en az bir parça işaretli olmalıdır.</li></ol>
+</section>
+<section id="ozel">
+  <h2>Özel etiket</h2>
+  <div class="where">Etiket › Özel</div>
+  <figure><img src="img/ozel.png" alt="Özel türde “Kalite kontrol etiketi” şablonu seçildi; önizleme şablondaki öğeleri seçili satırın verileriyle gösteriyor."><figcaption>Özel türde “Kalite kontrol etiketi” şablonu seçildi; önizleme şablondaki öğeleri seçili satırın verileriyle gösteriyor.</figcaption></figure>
+  <ol class="steps"><li><b class="ui">Şablon</b> listesinden kendi tasarladığınız şablonu seçin.</li><li><b class="ui">Tasarla</b> etiket tasarımcısını açar: yeni şablon oluşturur ya da seçili şablonu düzenler.</li></ol>
+</section>
+<section id="tasarla">
+  <h2>Etiket Tasarımcısı</h2>
+  <div class="where">Özel › Tasarla</div>
+  <div class="pair"><figure><img src="img/tasarla_01.png" alt="Yeni şablon: firma adı, sipariş no, çizgi ve model öğeleriyle başlar."><figcaption><span class="stepno">1</span>Yeni şablon: firma adı, sipariş no, çizgi ve model öğeleriyle başlar.</figcaption></figure><figure><img src="img/tasarla_02.png" alt="Ürün Kodu, Müşteri ve QC damgası eklendi; X, Y, genişlik ve yükseklik Özellikler’den girilerek yerleştirildi. Ad: “Kalite kontrol etiketi”."><figcaption><span class="stepno">2</span>Ürün Kodu, Müşteri ve QC damgası eklendi; X, Y, genişlik ve yükseklik Özellikler’den girilerek yerleştirildi. Ad: “Kalite kontrol etiketi”.</figcaption></figure></div>
+  <ol class="steps"><li>Soldaki <b class="ui">Öğe ekle</b> düğmeleri etikete logo, sipariş no, model, ürün kodu, ürün adı, müşteri, operatör, tarih, içindekiler, sabit metin, çizgi, çerçeve ya da QC damgası ekler.</li><li>Öğeyi sürükleyerek taşıyın, sağ alt köşesindeki kareden boyutlandırın. Ok tuşları 1 nokta (Shift ile 8 nokta) kaydırır, Delete siler; Alt basılıyken ızgaraya yapışmaz. 8 nokta 1 mm’dir.</li><li>Sağdaki <b class="ui">Öğeler</b> listesinden öğe seçilir; <b class="ui">Öne</b>, <b class="ui">Arkaya</b> ve <b class="ui">Sil</b> sırayı ve varlığı değiştirir.</li><li><b class="ui">Özellikler</b>: konum, boyut, hizalama, metin, yazı boyutu, kalın yazı, başlık, ters (siyah zemin) ve çerçeve.</li><li>Üstte şablon seçilir, <b class="ui">Ad</b> değiştirilir; <b class="ui">Yeni</b>, <b class="ui">Kopyala</b> ve <b class="ui">Sil</b> şablon işlemleridir. <b class="ui">Kaydet</b> şablonları yazar, “Kaydedilmemiş değişiklikler var” uyarısı kaybolur.</li></ol>
+</section>
+<section id="yazdir">
+  <h2>Yazdırma</h2>
+  <div class="where">Alt çubuk › Yazıcı, Kopya, PRN kaydet, Yazdır</div>
+  <ol class="steps"><li><b class="ui">Yazıcı</b> listesinden etiket yazıcısını seçin; ayar yoksa adında “Argox” geçen ilk yazıcı seçilir.</li><li><b class="ui">Kopya</b> her etiketin kaç kez basılacağıdır.</li><li><b class="ui">Yazdır</b> seçili satırların etiketlerini basar. Yazdırma yöntemi ayar dosyasından gelir: Windows sürücüsü üzerinden görüntü olarak ya da PPLB komutlarıyla doğrudan.</li><li><b class="ui">PRN kaydet</b> aynı komutları bir .prn dosyasına yazar; yazıcıyı denemeden çıktıyı saklamak için kullanılır.</li></ol>
+  <figure><img src="img/yazdir_demo.png" alt="Demo modunda Yazdır’a basıldı: “Demo modunda etiketler yazıcıya gönderilmez” uyarısı; gerçek kullanımda burada gönderilen etiket ve kopya sayısı yazar."><figcaption>Demo modunda Yazdır’a basıldı: “Demo modunda etiketler yazıcıya gönderilmez” uyarısı; gerçek kullanımda burada gönderilen etiket ve kopya sayısı yazar.</figcaption></figure>
+</section>
+<section id="yeni">
+  <h2>Yeni sipariş</h2>
+  <div class="where">Sol panel › Yeni sipariş</div>
+  <ol class="steps"><li>Veritabanında henüz olmayan bir sipariş için etiket basmanız gerekirse <b class="ui">Yeni sipariş</b>’e basın.</li><li>Sipariş no yazın ve <b class="ui">Model</b> listesinden modeli seçin. <b class="ui">Kaydet</b> siparişi bu bilgisayardaki yerel dosyaya yazar; veritabanına yazılmaz.</li><li>Sipariş, modelin parçalarıyla tabloya eklenir ve <b class="ui">Kaynak</b> sütununda “Yerel” görünür.</li></ol>
+  <div class="pair"><figure><img src="img/yeni_01.png" alt="Sipariş no “26 - K 220”, model V20L01 (VEGA 2.0 ton LPG)."><figcaption><span class="stepno">1</span>Sipariş no “26 - K 220”, model V20L01 (VEGA 2.0 ton LPG).</figcaption></figure><figure><img src="img/yeni_02.png" alt="Kaydet: 16 parça satırı “Yerel” kaynakla listelendi; durum satırı kaydedilen dosyayı yazar."><figcaption><span class="stepno">2</span>Kaydet: 16 parça satırı “Yerel” kaynakla listelendi; durum satırı kaydedilen dosyayı yazar.</figcaption></figure></div>
+</section>
+<section id="ayarlar">
+  <h2>Ayarlar</h2>
+  <div class="where">Sağ üst › Ayarlar</div>
+  <div class="pair"><figure><img src="img/ayarlar.png" alt="Güncelleme klasörü, kurulu ve klasördeki sürüm."><figcaption>Güncelleme klasörü, kurulu ve klasördeki sürüm.</figcaption></figure><div><ol class="steps"><li><b class="ui">Güncelleme klasörü</b>: uygulamanın her açılışta version.txt dosyasına baktığı klasör (ağ yolu olabilir). <b class="ui">Gözat</b> ile seçin.</li><li><b class="ui">Kontrol Et</b> klasördeki sürümü okuyup kurulu sürümle karşılaştırır.</li><li>Ayar bu bilgisayara özeldir; güncellemede kurulumdaki ayar dosyası korunur.</li><li>Veritabanı bağlantısı, sorgular, parça listesi ve etiket ayarları (koyuluk, hız, kaydırma) exe yanındaki appsettings.json dosyasındadır.</li></ol></div></div>
+</section>
+
+</main>
+</div>
+
+<div class="lightbox" id="lb"><img alt=""></div>
+<script>
+  const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+  document.querySelectorAll('figure img').forEach(img => img.addEventListener('click', () => { lbImg.src = img.src; lb.classList.add('open'); }));
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+</script>
+</body>
+</html>
